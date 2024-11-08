@@ -35,6 +35,7 @@ export default function Auth(props: PaperProps) {
           : null,
     },
   });
+
   return (
     <Container size="xl" className="grid min-h-screen place-content-center">
       <Paper
@@ -50,6 +51,7 @@ export default function Auth(props: PaperProps) {
 
         <Group grow mb="md" mt="md">
           <GoogleButton radius="xl">Google</GoogleButton>
+
           <TwitterButton radius="xl">Twitter</TwitterButton>
         </Group>
 

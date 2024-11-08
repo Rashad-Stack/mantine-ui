@@ -1,11 +1,24 @@
 import { Button, ButtonProps } from "@mantine/core";
 import React from "react";
-// import { TwitterIcon } from "@mantinex/dev-icons";
+
 import { IconBrandTwitter } from "@tabler/icons-react";
+import { signInWithPopup, TwitterAuthProvider } from "firebase/auth";
+import auth from "../firebase/config";
 
 export default function TwitterButton(
   props: ButtonProps & React.ComponentPropsWithoutRef<"button">,
 ) {
+  const handleTwitterSignIn = async () => {
+    const provider = new TwitterAuthProvider();
+
+    try {
+      const response = await signInWithPopup(auth, provider);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Button
       leftSection={
@@ -16,6 +29,7 @@ export default function TwitterButton(
       }
       variant="default"
       {...props}
+      onClick={handleTwitterSignIn}
     />
   );
 }

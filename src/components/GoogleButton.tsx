@@ -1,11 +1,37 @@
 import { Button } from "@mantine/core";
+import {
+  browserLocalPersistence,
+  GoogleAuthProvider,
+  setPersistence,
+  signInWithPopup,
+} from "firebase/auth";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { SET_USER } from "../context/actions";
+import auth from "../firebase/config";
+import useGlobalState from "../hooks/useGlobalState";
 
 export default function GoogleButton(
   props: React.ComponentPropsWithoutRef<"svg">,
 ) {
+  const { dispatch } = useGlobalState();
+  const navigate = useNavigate();
+
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      await setPersistence(auth, browserLocalPersistence);
+      dispatch({ type: SET_USER, payload: result.user });
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <Button variant="default" radius="xl">
+    <Button variant="default" onClick={handleGoogleSignIn}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid"

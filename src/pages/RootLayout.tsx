@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 export default function RootLayout() {
@@ -9,9 +10,7 @@ export default function RootLayout() {
         {/* This is where the page content will go */}
         <Outlet />
       </main>
-      <footer className='bg-gray-800 text-white p-4'>
-        <p>&copy; 2021 My App</p>
-      </footer>
+      <Footer/>
     </div>
   )
 }

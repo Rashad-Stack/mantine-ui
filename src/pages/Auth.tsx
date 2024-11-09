@@ -20,7 +20,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import GoogleButton from "../components/GoogleButton";
 import Loading from "../components/Loading";
 import TwitterButton from "../components/TwitterButton";
@@ -32,6 +32,8 @@ export default function Auth(props: PaperProps) {
   const [loading, setLoading] = useState(false);
   const { dispatch } = useGlobalState();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const form = useForm({
     initialValues: {
@@ -78,7 +80,7 @@ export default function Auth(props: PaperProps) {
         });
       }
 
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {
       console.error(error);
     } finally {

@@ -1,9 +1,10 @@
 import { Avatar, Group, Menu, Text, UnstyledButton, rem } from "@mantine/core";
 import { IconChevronDown, IconLogout } from "@tabler/icons-react";
 import auth from "../firebase/config";
+import useGlobalState from "../hooks/useGlobalState";
 
 export function UserButton() {
-  const user = auth.currentUser;
+  const { user, dispatch } = useGlobalState();
 
   return (
     <Menu
@@ -45,7 +46,10 @@ export function UserButton() {
               stroke={1.5}
             />
           }
-          onClick={() => auth.signOut()}
+          onClick={() => {
+            auth.signOut();
+            dispatch({ type: "SET_USER", payload: null });
+          }}
         >
           Logout
         </Menu.Item>

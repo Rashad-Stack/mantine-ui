@@ -15,15 +15,14 @@ import { useDisclosure } from "@mantine/hooks";
 import { MantineLogo } from "@mantinex/mantine-logo";
 import { Link, NavLink } from "react-router-dom";
 import { navbar } from "../constant/data";
-import auth from "../firebase/config";
+import useGlobalState from "../hooks/useGlobalState";
 import { UserButton } from "./UserButton";
 
 export default function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened] = useDisclosure(false);
-
-  const user = auth.currentUser;
+  const { user } = useGlobalState();
 
   const links = navbar.map((item) => (
     <NavLink

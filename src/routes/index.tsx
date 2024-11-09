@@ -2,12 +2,15 @@ import Protected from "../components/Protected";
 import Auth from "../pages/Auth";
 import Error from "../pages/Error";
 import RootLayout from "../pages/RootLayout";
+import { loadUser } from "./utils/loader";
 
 const routes = [
   {
     path: "/",
-    element: <RootLayout />,
+    loader: loadUser,
     errorElement: <Error />,
+    element: <RootLayout />,
+
     children: [
       {
         index: true,
@@ -16,6 +19,7 @@ const routes = [
       {
         path: "learn",
         element: <Protected />,
+        loader: loadUser,
         children: [
           {
             index: true,
@@ -26,6 +30,7 @@ const routes = [
       {
         path: "academy",
         element: <Protected />,
+        loader: loadUser,
         children: [
           {
             index: true,

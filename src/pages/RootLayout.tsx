@@ -25,16 +25,18 @@ export default function RootLayout() {
     return () => unsubscribe();
   }, [dispatch]);
 
-  if (loading) return <Loading />;
-
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="flex-1 p-4">
-        {/* This is where the page content will go */}
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
+    <>
+      {loading && <Loading />}
+
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1 p-4">
+          {/* This is where the page content will go */}
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }

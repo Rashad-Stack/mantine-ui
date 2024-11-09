@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { MantineLogo } from "@mantinex/mantine-logo";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { navbar } from "../constant/data";
 import auth from "../firebase/config";
 import { UserButton } from "./UserButton";
@@ -50,7 +50,13 @@ export default function Header() {
             </Group>
 
             <Group visibleFrom="sm">
-              {user ? <UserButton /> : <Button bg="orange">Log in</Button>}
+              {user ? (
+                <UserButton />
+              ) : (
+                <Link to="/auth">
+                  <Button bg="orange">Log in</Button>
+                </Link>
+              )}
             </Group>
 
             <Burger
@@ -81,7 +87,13 @@ export default function Header() {
           <Divider my="sm" />
 
           <Group justify="center" grow pb="xl" px="md">
-            {user ? <UserButton /> : <Button bg="orange">Log in</Button>}
+            {user ? (
+              <UserButton />
+            ) : (
+              <Link to="/login">
+                <Button bg="orange">Log in</Button>
+              </Link>
+            )}
           </Group>
         </ScrollArea>
       </Drawer>

@@ -1,6 +1,7 @@
 import Protected from "../components/Protected";
 import Auth from "../pages/Auth";
 import Error from "../pages/Error";
+import Home from "../pages/Home";
 import RootLayout from "../pages/RootLayout";
 import { loadUser } from "./utils/loader";
 
@@ -14,7 +15,7 @@ const routes = [
     children: [
       {
         index: true,
-        element: <h1>Home</h1>,
+        element: <Home />,
       },
       {
         path: "learn",

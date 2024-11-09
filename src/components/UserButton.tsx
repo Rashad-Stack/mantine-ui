@@ -1,6 +1,6 @@
 import { Avatar, Group, Menu, Text, UnstyledButton, rem } from "@mantine/core";
 import { IconChevronDown, IconLogout } from "@tabler/icons-react";
-import auth from "../firebase/config";
+import { auth } from "../firebase/config";
 import useGlobalState from "../hooks/useGlobalState";
 
 export function UserButton() {

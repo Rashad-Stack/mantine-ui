@@ -38,8 +38,8 @@ export default function Header() {
   ));
 
   return (
-    <Box>
-      <header className="sticky">
+    <Box className="sticky top-0 z-50 border-b bg-white/25 backdrop-blur-sm">
+      <header>
         <Container size="xl" py="sm">
           <Group justify="space-between" h="100%">
             <MantineLogo size={30} color="orange" />

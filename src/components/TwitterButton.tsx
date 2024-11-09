@@ -3,7 +3,7 @@ import React from "react";
 
 import { IconBrandTwitter } from "@tabler/icons-react";
 import { signInWithPopup, TwitterAuthProvider } from "firebase/auth";
-import auth from "../firebase/config";
+import { auth } from "../firebase/config";
 
 export default function TwitterButton(
   props: ButtonProps & React.ComponentPropsWithoutRef<"button">,

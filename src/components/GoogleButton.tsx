@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { SET_USER } from "../context/actions";
-import auth from "../firebase/config";
+import { auth } from "../firebase/config";
 import useGlobalState from "../hooks/useGlobalState";
 
 export default function GoogleButton(

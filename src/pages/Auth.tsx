@@ -24,7 +24,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import GoogleButton from "../components/GoogleButton";
 import Loading from "../components/Loading";
 import TwitterButton from "../components/TwitterButton";
-import auth from "../firebase/config";
+import { auth } from "../firebase/config";
 import useGlobalState from "../hooks/useGlobalState";
 
 export default function Auth(props: PaperProps) {

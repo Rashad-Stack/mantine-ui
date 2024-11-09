@@ -3,7 +3,7 @@ import Auth from "../pages/Auth";
 import Error from "../pages/Error";
 import Home from "../pages/Home";
 import RootLayout from "../pages/RootLayout";
-import { loadUser } from "./utils/loader";
+import { loadBooks, loadUser } from "../utils/loader";
 
 const routes = [
   {
@@ -16,6 +16,7 @@ const routes = [
       {
         index: true,
         element: <Home />,
+        loader: loadBooks,
       },
       {
         path: "learn",

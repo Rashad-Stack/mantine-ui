@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import auth from "../firebase/config";
+import { auth } from "../firebase/config";
 import useGlobalState from "../hooks/useGlobalState";
 
 export default function RootLayout() {

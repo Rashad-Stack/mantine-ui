@@ -12,7 +12,12 @@ import { IconHeart } from "@tabler/icons-react";
 export default function ProductCard() {
   const { image, title, description, country, badges } = mockdata;
   const features = badges.map((badge) => (
-    <Badge variant="light" key={badge.label} leftSection={badge.emoji}>
+    <Badge
+      color="orange"
+      variant="light"
+      key={badge.label}
+      leftSection={badge.emoji}
+    >
       {badge.label}
     </Badge>
   ));
@@ -27,7 +32,7 @@ export default function ProductCard() {
           <Text fz="lg" fw={500}>
             {title}
           </Text>
-          <Badge size="sm" variant="light">
+          <Badge color="orange" size="sm" variant="light">
             {country}
           </Badge>
         </Group>
@@ -46,11 +51,11 @@ export default function ProductCard() {
       </Card.Section>
 
       <Group mt="xs">
-        <Button radius="md" style={{ flex: 1 }}>
+        <Button color="orange" radius="md" style={{ flex: 1 }}>
           Show details
         </Button>
         <ActionIcon variant="default" radius="md" size={36}>
-          <IconHeart className="h-5 w-5 text-red-600" stroke={1.5} />
+          <IconHeart className="h-5 w-5 text-brand-orange-800" stroke={1.5} />
         </ActionIcon>
       </Group>
     </Card>

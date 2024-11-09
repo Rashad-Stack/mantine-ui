@@ -1,6 +1,6 @@
 import { createContext, useEffect, useReducer } from "react";
 import { ActionsType, InitialState, User } from "../../types";
-import auth from "../firebase/config";
+import { auth } from "../firebase/config";
 import { SET_USER } from "./actions";
 import reducers from "./reducers";
 

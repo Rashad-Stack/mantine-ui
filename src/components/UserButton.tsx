@@ -1,28 +1,9 @@
-import {
-  Avatar,
-  Group,
-  Menu,
-  Text,
-  UnstyledButton,
-  rem,
-  useMantineTheme,
-} from "@mantine/core";
-import {
-  IconChevronDown,
-  IconHeart,
-  IconLogout,
-  IconMessage,
-  IconPlayerPause,
-  IconSettings,
-  IconStar,
-  IconSwitchHorizontal,
-  IconTrash,
-} from "@tabler/icons-react";
+import { Avatar, Group, Menu, Text, UnstyledButton, rem } from "@mantine/core";
+import { IconChevronDown, IconLogout } from "@tabler/icons-react";
 import auth from "../firebase/config";
 
 export function UserButton() {
   const user = auth.currentUser;
-  const theme = useMantineTheme();
 
   return (
     <Menu
@@ -56,61 +37,7 @@ export function UserButton() {
         </UnstyledButton>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item
-          leftSection={
-            <IconHeart
-              style={{ width: rem(16), height: rem(16) }}
-              color={theme.colors.red[6]}
-              stroke={1.5}
-            />
-          }
-        >
-          Liked posts
-        </Menu.Item>
-        <Menu.Item
-          leftSection={
-            <IconStar
-              style={{ width: rem(16), height: rem(16) }}
-              color={theme.colors.yellow[6]}
-              stroke={1.5}
-            />
-          }
-        >
-          Saved posts
-        </Menu.Item>
-        <Menu.Item
-          leftSection={
-            <IconMessage
-              style={{ width: rem(16), height: rem(16) }}
-              color={theme.colors.blue[6]}
-              stroke={1.5}
-            />
-          }
-        >
-          Your comments
-        </Menu.Item>
-
         <Menu.Label>Settings</Menu.Label>
-        <Menu.Item
-          leftSection={
-            <IconSettings
-              style={{ width: rem(16), height: rem(16) }}
-              stroke={1.5}
-            />
-          }
-        >
-          Account settings
-        </Menu.Item>
-        <Menu.Item
-          leftSection={
-            <IconSwitchHorizontal
-              style={{ width: rem(16), height: rem(16) }}
-              stroke={1.5}
-            />
-          }
-        >
-          Change account
-        </Menu.Item>
         <Menu.Item
           leftSection={
             <IconLogout
@@ -124,29 +51,6 @@ export function UserButton() {
         </Menu.Item>
 
         <Menu.Divider />
-
-        <Menu.Label>Danger zone</Menu.Label>
-        <Menu.Item
-          leftSection={
-            <IconPlayerPause
-              style={{ width: rem(16), height: rem(16) }}
-              stroke={1.5}
-            />
-          }
-        >
-          Pause subscription
-        </Menu.Item>
-        <Menu.Item
-          color="red"
-          leftSection={
-            <IconTrash
-              style={{ width: rem(16), height: rem(16) }}
-              stroke={1.5}
-            />
-          }
-        >
-          Delete account
-        </Menu.Item>
       </Menu.Dropdown>
     </Menu>
   );

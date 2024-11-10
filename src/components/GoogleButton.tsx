@@ -31,7 +31,7 @@ export default function GoogleButton(
   };
 
   return (
-    <Button variant="default" onClick={handleGoogleSignIn}>
+    <Button variant="default" radius="lg" onClick={handleGoogleSignIn}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid"

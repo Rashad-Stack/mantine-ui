@@ -16,6 +16,7 @@ import { useForm } from "@mantine/form";
 import { upperFirst, useToggle } from "@mantine/hooks";
 import {
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
@@ -39,6 +40,7 @@ export default function Auth(props: PaperProps) {
     initialValues: {
       email: "",
       name: "",
+      photoUrl: "",
       password: "",
       terms: true,
     },
@@ -46,7 +48,7 @@ export default function Auth(props: PaperProps) {
     validate: {
       email: (val: string) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
       password: (val: string) =>
-        val.length <= 6
+        val.length <= 1
           ? "Password should include at least 6 characters"
           : null,
     },
@@ -54,7 +56,7 @@ export default function Auth(props: PaperProps) {
 
   const handleSubmit = form.onSubmit(async (values) => {
     setLoading(true);
-    const { email, password, name } = values;
+    const { email, password, name, photoUrl } = values;
 
     try {
       if (type === "register" && values.terms) {
@@ -66,6 +68,7 @@ export default function Auth(props: PaperProps) {
         // Set the user's display name
         await updateProfile(result.user, {
           displayName: name,
+          photoURL: photoUrl,
         });
 
         dispatch({
@@ -81,12 +84,37 @@ export default function Auth(props: PaperProps) {
       }
 
       navigate(from, { replace: true });
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      const err = error as { code: string };
+      const errorMessage = err.code?.split("/")[1] || "An error occurred";
+      if (err.code.startsWith("auth/")) {
+        if (err.code.includes("password")) {
+          form.setErrors({ password: errorMessage });
+        } else if (err.code.includes("email")) {
+          form.setErrors({ email: errorMessage });
+        } else {
+          form.setErrors({ email: errorMessage, password: errorMessage });
+        }
+      } else {
+        console.error(err);
+      }
     } finally {
       setLoading(false);
     }
   });
+
+  const handleForgetPassword = async () => {
+    // Handle forgot password
+    setLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, form.values.email);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      alert("Password reset email sent");
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -129,6 +157,18 @@ export default function Auth(props: PaperProps) {
                 />
               )}
 
+              {type === "register" && (
+                <TextInput
+                  label="Profile Picture"
+                  placeholder="Your profile picture"
+                  value={form.values.photoUrl}
+                  onChange={(event) =>
+                    form.setFieldValue("photoUrl", event.currentTarget.value)
+                  }
+                  radius="md"
+                />
+              )}
+
               <TextInput
                 required
                 label="Email"
@@ -137,7 +177,7 @@ export default function Auth(props: PaperProps) {
                 onChange={(event) =>
                   form.setFieldValue("email", event.currentTarget.value)
                 }
-                error={form.errors.email && "Invalid email"}
+                error={form.errors.email}
                 radius="md"
               />
 
@@ -149,10 +189,7 @@ export default function Auth(props: PaperProps) {
                 onChange={(event) =>
                   form.setFieldValue("password", event.currentTarget.value)
                 }
-                error={
-                  form.errors.password &&
-                  "Password should include at least 6 characters"
-                }
+                error={form.errors.password}
                 radius="md"
               />
 
@@ -167,7 +204,21 @@ export default function Auth(props: PaperProps) {
               )}
             </Stack>
 
-            <Group justify="space-between" mt="xl">
+            {type === "login" && (
+              <Group justify="space-between" mt="xl">
+                <Anchor
+                  component="button"
+                  type="button"
+                  c="dimmed"
+                  onClick={handleForgetPassword}
+                  size="xs"
+                >
+                  Forget password?
+                </Anchor>
+              </Group>
+            )}
+
+            <Group justify="space-between" mt="xs">
               <Anchor
                 component="button"
                 type="button"

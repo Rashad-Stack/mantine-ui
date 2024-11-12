@@ -5,7 +5,7 @@ export default function Loading() {
   const [visible] = useDisclosure(true);
 
   return (
-    <Box pos="relative">
+    <Box pos="absolute" className="inset-0">
       <LoadingOverlay
         style={{ height: "100vh", width: "100vw" }}
         visible={visible}

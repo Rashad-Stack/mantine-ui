@@ -1,10 +1,11 @@
 import { Avatar, Group, Menu, Text, UnstyledButton, rem } from "@mantine/core";
 import { IconChevronDown, IconLogout } from "@tabler/icons-react";
-import { auth } from "../firebase/config";
+import { useNavigate } from "react-router-dom";
 import useGlobalState from "../hooks/useGlobalState";
 
 export function UserButton() {
   const { user, dispatch } = useGlobalState();
+  const navigate = useNavigate();
 
   return (
     <Menu
@@ -47,7 +48,7 @@ export function UserButton() {
             />
           }
           onClick={() => {
-            auth.signOut();
+            navigate("/logout");
             dispatch({ type: "SET_USER", payload: null });
           }}
         >

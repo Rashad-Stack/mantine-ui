@@ -3,7 +3,7 @@ import Auth from "../pages/Auth";
 import Error from "../pages/Error";
 import Home from "../pages/Home";
 import RootLayout from "../pages/RootLayout";
-import { loadBooks, loadUser } from "../utils/loader";
+import { loadFoods, loadLogout, loadUser } from "../utils/loader";
 
 const routes = [
   {
@@ -16,26 +16,17 @@ const routes = [
       {
         index: true,
         element: <Home />,
-        loader: loadBooks,
+        loader: loadFoods,
       },
       {
-        path: "learn",
         element: <Protected />,
-        loader: loadUser,
         children: [
           {
-            index: true,
+            path: "learn",
             element: <h1>Learn</h1>,
           },
-        ],
-      },
-      {
-        path: "academy",
-        element: <Protected />,
-        loader: loadUser,
-        children: [
           {
-            index: true,
+            path: "academy",
             element: <h1>academy</h1>,
           },
         ],
@@ -43,8 +34,12 @@ const routes = [
     ],
   },
   {
-    path: "/auth",
+    path: "auth",
     element: <Auth />,
+  },
+  {
+    path: "logout",
+    loader: loadLogout,
   },
 ];
 

@@ -1,5 +1,5 @@
 import { ActionsType, InitialState } from "../../types";
-import { SET_USER } from "./actions";
+import { SET_BOOKS, SET_USER } from "./actions";
 
 // Reducer
 const reducers = (state: InitialState, action: ActionsType) => {
@@ -8,6 +8,14 @@ const reducers = (state: InitialState, action: ActionsType) => {
       return {
         ...state,
         user: action.payload,
+        isLoading: false,
+      };
+
+    case SET_BOOKS:
+      return {
+        ...state,
+        books: action.payload,
+        isLoading: false,
       };
 
     default:

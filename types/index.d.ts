@@ -5,13 +5,23 @@ export type User = {
   photoURL: string | null;
 };
 
-export type InitialState = {
-  user: User | null;
+export type Book = {
+  color: string;
+  description: string;
+  id: number;
+  name: string;
+  price: number;
 };
 
-export type Action = "SET_USER";
+export type InitialState = {
+  user: User | null;
+  books: Book[];
+  isLoading: boolean;
+};
+
+export type Action = "SET_USER" | "SET_BOOKS";
 
 export type ActionsType = {
   type: Action;
-  payload: User | [] | null;
+  payload: unknown;
 };

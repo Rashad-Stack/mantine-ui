@@ -1,21 +1,33 @@
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
-import { User } from "../../types";
+import { redirect } from "react-router-dom";
 import { auth, db } from "../firebase/config";
 
 export const loadUser = async () => {
-  return await new Promise<User | null>((resolve) => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      resolve(currentUser);
-      unsubscribe();
-    });
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(
+      auth,
+      (user) => {
+        if (user) {
+          resolve(user);
+        } else {
+          resolve(null);
+        }
+      },
+      reject,
+    );
   });
 };
 
-export const loadBooks = async () => {
-  const booksCollection = collection(db, "books");
-  const booksSnapshot = await getDocs(booksCollection);
-  const books = booksSnapshot.docs.map((doc) => doc.data());
+export const loadFoods = async () => {
+  const foodsCollection = collection(db, "foods");
+  const foodsSnapshot = await getDocs(foodsCollection);
+  const foods = foodsSnapshot.docs.map((doc) => doc.data());
 
-  return books;
+  return foods;
+};
+
+export const loadLogout = async () => {
+  await signOut(auth);
+  return redirect("/");
 };

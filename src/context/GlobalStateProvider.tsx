@@ -5,7 +5,11 @@ import { SET_USER } from "./actions";
 import reducers from "./reducers";
 
 // Initial state
-const initialState: InitialState = { user: null as User | null };
+const initialState: InitialState = {
+  user: null as User | null,
+  books: [],
+  isLoading: true,
+};
 // Create context
 const GlobalStateContext = createContext<{
   state: InitialState;
